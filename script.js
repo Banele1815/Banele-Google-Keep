@@ -1,22 +1,22 @@
 /**
  * Google Keep Clone - Application Logic
- * Handles note creation, editing, deletion, archiving, and search.
- * Notes are persisted to localStorage.
+ * Handles note creation, editing, deletion (soft delete to Bin), restoring,
+ * permanent deletion, archiving, and search. Notes are persisted to localStorage.
  */
 
 const STORAGE_KEY = "keep-clone-notes-v1";
 
 /**
  * Central application state.
- * @property {Array<Object>} notes - All notes (active and archived).
+ * @property {Array<Object>} notes - All notes (active, archived, and deleted).
  * @property {string|null} editingId - ID of the note currently being edited, or null.
- * @property {boolean} showArchived - Whether the archive view is currently active.
- * @property {string} searchTerm - Current search query (lowercase).
+ * @property {"notes"|"archive"|"bin"} currentView - Which view is currently active.
+ * @property {string} searchTerm - Current search query.
  */
 const state = {
   notes: loadNotes(),
   editingId: null,
-  showArchived: false,
+  currentView: "notes",
   searchTerm: "",
 };
 
@@ -30,6 +30,7 @@ const modalTitle = document.getElementById("modalTitle");
 const composerInput = document.getElementById("composerInput");
 const searchInput = document.querySelector(".search-input");
 const sectionTitle = document.querySelector(".header-left h1");
+const composerSection = document.querySelector(".composer-section");
 
 /**
  * Loads notes from localStorage.
@@ -96,6 +97,45 @@ function escapeHtml(value) {
 }
 
 /**
+ * Builds the action buttons markup for a note card, tailored to the current view.
+ * @param {Object} note - The note the actions belong to.
+ * @returns {string} HTML string for the action buttons.
+ */
+function createNoteActions(note) {
+  if (state.currentView === "bin") {
+    return `
+      <div class="note-actions">
+        <button class="note-action-btn" data-action="restore" type="button" title="Restore">
+          <img src="assets/notes icon.png" alt="" />
+        </button>
+        <button class="note-action-btn" data-action="delete-forever" type="button" title="Delete forever">
+          <img src="assets/bin icon.png" alt="" />
+        </button>
+      </div>
+    `;
+  }
+
+  const archiveIcon = note.archived
+    ? "assets/notes icon.png"
+    : "assets/Archive icon.png";
+  const archiveLabel = note.archived ? "Unarchive" : "Archive";
+
+  return `
+    <div class="note-actions">
+      <button class="note-action-btn" data-action="edit" type="button" title="Edit">
+        <img src="assets/edit labels icon.png" alt="" />
+      </button>
+      <button class="note-action-btn" data-action="delete" type="button" title="Delete">
+        <img src="assets/bin icon.png" alt="" />
+      </button>
+      <button class="note-action-btn" data-action="archive" type="button" title="${archiveLabel}">
+        <img src="${archiveIcon}" alt="" />
+      </button>
+    </div>
+  `;
+}
+
+/**
  * Builds the HTML markup for a single note card.
  * @param {Object} note - The note to render.
  * @returns {string} HTML string for the note card.
@@ -103,55 +143,48 @@ function escapeHtml(value) {
 function createNoteCard(note) {
   const text = escapeHtml(note.text || "");
   const title = escapeHtml(note.title || "");
-  const archiveIcon = note.archived
-    ? "assets/notes icon.png"
-    : "assets/Archive icon.png";
-  const archiveLabel = note.archived ? "Unarchive" : "Archive";
 
   return `
     <div class="note-card" data-id="${note.id}" role="button" tabindex="0">
       ${title ? `<h3 class="note-title">${title}</h3>` : ""}
       ${text ? `<p class="note-text">${text}</p>` : ""}
-      <div class="note-actions">
-        <button class="note-action-btn" data-action="edit" type="button" title="Edit">
-          <img src="assets/edit labels icon.png" alt="" />
-        </button>
-        <button class="note-action-btn" data-action="delete" type="button" title="Delete">
-          <img src="assets/bin icon.png" alt="" />
-        </button>
-        <button class="note-action-btn" data-action="archive" type="button" title="${archiveLabel}">
-          <img src="${archiveIcon}" alt="" />
-        </button>
-      </div>
+      ${createNoteActions(note)}
     </div>
   `;
 }
 
 /**
- * Filters notes according to the current view (active vs archived) and search term,
- * then renders them into the notes grid. Updates the page heading to reflect the view.
+ * Filters notes according to the current view (notes / archive / bin) and search term,
+ * then renders them into the notes grid. Updates the page heading and composer visibility.
  */
 function renderNotes() {
   const term = state.searchTerm.trim().toLowerCase();
 
   const visibleNotes = state.notes
-    .filter((note) => (state.showArchived ? note.archived : !note.archived))
+    .filter((note) => {
+      if (state.currentView === "bin") return note.deleted;
+      if (state.currentView === "archive")
+        return note.archived && !note.deleted;
+      return !note.archived && !note.deleted;
+    })
     .filter((note) => {
       if (!term) return true;
       const haystack = `${note.title} ${note.text}`.toLowerCase();
       return haystack.includes(term);
     });
 
-  sectionTitle.textContent = state.showArchived ? "Archive" : "Keep";
-  composerInput.style.display = state.showArchived ? "none" : "";
+  const titles = { notes: "Keep", archive: "Archive", bin: "Bin" };
+  sectionTitle.textContent = titles[state.currentView];
+
+  composerSection.style.display = state.currentView === "notes" ? "" : "none";
 
   if (visibleNotes.length === 0) {
-    const emptyMessage = state.showArchived
-      ? "No archived notes"
-      : term
-        ? "No notes match your search"
-        : "No notes yet";
-    notesList.innerHTML = `<div style="padding: 2rem; text-align: center; color: #999;">${emptyMessage}</div>`;
+    const emptyMessages = {
+      notes: term ? "No notes match your search" : "No notes yet",
+      archive: term ? "No archived notes match your search" : "No archived notes",
+      bin: term ? "No notes in bin match your search" : "Bin is empty",
+    };
+    notesList.innerHTML = `<div style="padding: 2rem; text-align: center; color: #999;">${emptyMessages[state.currentView]}</div>`;
   } else {
     notesList.innerHTML = visibleNotes.map(createNoteCard).join("");
   }
@@ -182,6 +215,7 @@ function handleNoteSubmit(event) {
       title,
       text,
       archived: false,
+      deleted: false,
       createdAt: new Date().toISOString(),
     });
   }
@@ -192,7 +226,8 @@ function handleNoteSubmit(event) {
 }
 
 /**
- * Handles clicks on note action buttons (edit, delete, archive/unarchive).
+ * Handles clicks on note action buttons: edit, delete (soft), archive/unarchive,
+ * restore (from bin), and delete-forever (permanent removal).
  * @param {MouseEvent} event
  */
 function handleNoteActions(event) {
@@ -212,13 +247,31 @@ function handleNoteActions(event) {
   }
 
   if (action === "delete") {
-    state.notes = state.notes.filter((note) => note.id !== noteId);
+    // Soft delete: move to Bin instead of removing immediately.
+    state.notes = state.notes.map((note) =>
+      note.id === noteId ? { ...note, deleted: true } : note,
+    );
   }
 
   if (action === "archive") {
     state.notes = state.notes.map((note) =>
       note.id === noteId ? { ...note, archived: !note.archived } : note,
     );
+  }
+
+  if (action === "restore") {
+    // Restore from Bin back to the main Notes view (also un-archives it).
+    state.notes = state.notes.map((note) =>
+      note.id === noteId ? { ...note, deleted: false, archived: false } : note,
+    );
+  }
+
+  if (action === "delete-forever") {
+    const confirmed = window.confirm(
+      "Delete this note forever? This cannot be undone.",
+    );
+    if (!confirmed) return;
+    state.notes = state.notes.filter((note) => note.id !== noteId);
   }
 
   saveNotes();
@@ -244,7 +297,9 @@ notesList.addEventListener("click", (event) => {
     handleNoteActions(event);
     return;
   }
-  
+
+  if (state.currentView === "bin") return;
+
   const card = event.target.closest(".note-card");
   if (card) {
     const noteId = card.dataset.id;
@@ -267,7 +322,7 @@ if (searchInput) {
   });
 }
 
-// Sidebar navigation: only "Notes" and "Archive" are functional views.
+// Sidebar navigation: "Notes", "Archive", and "Bin" are functional views.
 document.querySelectorAll(".nav-item").forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
@@ -279,10 +334,8 @@ document.querySelectorAll(".nav-item").forEach((link) => {
 
     const section = link.dataset.section;
 
-    if (section === "archive") {
-      state.showArchived = true;
-    } else if (section === "notes") {
-      state.showArchived = false;
+    if (section === "notes" || section === "archive" || section === "bin") {
+      state.currentView = section;
     }
 
     renderNotes();

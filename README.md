@@ -42,11 +42,10 @@ Then open the printed local URL (e.g. `http://localhost:3000`) in your browser.
 ## Notes on Implementation
 
 - State is kept in a single in-memory `state` object and mirrored to `localStorage` on every change, so a page refresh doesn't lose data.
-- The sidebar's **Reminders**, **Edit labels**, and **Bin** links are present in the UI for visual completeness but are not implemented in this version — only **Notes** and **Archive** are functional views.
+- The sidebar's **Reminders** and **Edit labels** links are present in the UI for visual completeness but are not implemented in this version — only **Notes** and **Archive** are functional views.
 - The "New list", "New note with drawing", and "New note with image" composer icons are visual placeholders matching the Google Keep UI and are not wired to functionality in this version.
 
 ## Possible Future Improvements
 
-- Implement the Bin (soft-delete with restore) instead of permanent deletion.
 - Add note color/label support.
 - Add drag-and-drop reordering of notes.
