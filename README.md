@@ -1,51 +1,200 @@
-# Google Keep Clone
+# Banele Google Keep Clone
 
-A simplified version of Google Keep built with vanilla HTML, CSS, and JavaScript. Notes are created, edited, deleted, and archived through a clean, responsive interface, and everything is persisted in the browser's `localStorage`.
+A responsive **Google Keep Clone** built with **HTML5, CSS3, and Vanilla JavaScript**. This project recreates the core note-taking experience of Google Keep, allowing users to create, edit, archive, search, restore, and permanently delete notes while persisting data using the browser's Local Storage.
 
-**Author:** Gcina Banele Kubeka
+---
+
+## Preview
+<img width="1366" height="768" alt="Google keep screenshot" src="https://github.com/user-attachments/assets/60cabf65-d265-48bf-9162-42ae36b1c0bb" />
+
+
+---
 
 ## Features
 
-- **Create notes** — click "Take a note..." to open the composer modal, add a title and/or text, and save.
-- **Edit notes** — click any note card to reopen it in edit mode.
-- **Delete notes** — hover over a note card to reveal action buttons, including delete.
-- **Archive / unarchive notes** — hover over a note card and click the archive icon. Archived notes are moved out of the main view and can be viewed via the **Archive** link in the sidebar; the archive icon toggles the note back to active.
-- **Search** — type in the search bar to filter notes by title or text in real time.
-- **Persistence** — all notes are saved to `localStorage`, so they remain after refreshing or closing the browser.
-- **Responsive layout** — the interface adapts across desktop, tablet, and mobile screen widths.
+* Create new notes
+* Edit existing notes
+* Archive and unarchive notes
+* Soft delete notes to the Bin
+* Restore notes from the Bin
+* Permanently delete notes
+* Live search functionality
+* Local Storage persistence
+* Responsive layout for desktop, tablet, and mobile devices
+* Modal-based note creation and editing
+* Clean Google Keep-inspired user interface
+
+---
+
+## Built With
+
+* HTML5
+* CSS3
+* Vanilla JavaScript
+* Local Storage API
+* Google Fonts (Roboto)
+
+---
 
 ## Project Structure
 
+```text
+Banele-google-keep/
+│
+├── assets
+├── index.html
+├── styles.css
+├── script.js
+└── README.md
 ```
-.
-├── index.html      # App markup and structure
-├── styles.css      # All styling, including responsive breakpoints
-├── script.js       # App logic: state, rendering, event handling
-├── assets/         # Icons and images used throughout the UI
-└── README.md       # This is my README
-```
 
-## Running the Project
+---
 
-No build step, server, or dependencies are required.
+## Application Functionality
 
-**Option 1 — Open directly:**
-1. Download or clone this repository.
-2. Double-click `index.html` (or right-click → Open With → your browser).
+### Notes
 
-**Option 2 — Local server (recommended for consistent behavior):**
+Users can:
+
+* Create notes
+* Edit notes
+* Save notes
+* Search notes instantly
+* Archive notes
+* Restore archived notes
+* Move notes to the Bin
+* Restore deleted notes
+* Permanently delete notes
+
+---
+
+### Data Persistence
+
+All notes are stored using the browser's **Local Storage**, allowing data to remain available even after refreshing or reopening the browser.
+
+No backend or database is required.
+
+---
+
+### Search
+
+The application includes a live search feature that filters notes in real time by matching both:
+
+* Note title
+* Note content
+
+---
+
+### Responsive Design
+
+The interface adapts across different screen sizes.
+
+Responsive behavior includes:
+
+* Desktop layout
+* Tablet layout
+* Mobile navigation adjustments
+* Responsive note grid
+* Responsive modal sizing
+
+---
+
+## Technologies Used
+
+| Technology        | Purpose                       |
+| ----------------- | ----------------------------- |
+| HTML5             | Application structure         |
+| CSS3              | Styling and responsive layout |
+| JavaScript        | Application logic             |
+| Local Storage API | Data persistence              |
+| Google Fonts      | Typography                    |
+
+---
+
+## Design
+
+This project is inspired by the Google Keep interface while being developed entirely from scratch using vanilla web technologies.
+
+The design focuses on:
+
+* Minimalism
+* Accessibility
+* Responsive layouts
+* Simple navigation
+* Clean typography
+* Familiar user interactions
+
+---
+
+## How to Run
+
+1. Clone the repository
+
 ```bash
-npx serve .
+(https://github.com/Banele1815/Banele-Google-Keep.git?authuser=0)
 ```
-Then open the printed local URL (e.g. `http://localhost:3000`) in your browser.
 
-## Notes on Implementation
+2. Navigate into the project
 
-- State is kept in a single in-memory `state` object and mirrored to `localStorage` on every change, so a page refresh doesn't lose data.
-- The sidebar's **Reminders** and **Edit labels** links are present in the UI for visual completeness but are not implemented in this version — only **Notes** and **Archive** are functional views.
-- The "New list", "New note with drawing", and "New note with image" composer icons are visual placeholders matching the Google Keep UI and are not wired to functionality in this version.
+```bash
+cd Banele-Google-Keep
+```
 
-## Possible Future Improvements
+3. Open the project
 
-- Add note color/label support.
-- Add drag-and-drop reordering of notes.
+Simply open `index.html` in your preferred web browser.
+
+No build tools or package installation are required.
+
+---
+
+## Future Improvements
+
+Potential enhancements include:
+
+* Note colors
+* Labels and categories
+* Reminder functionality
+* Image attachments
+* Drag-and-drop note ordering
+* Pinning important notes
+* Dark mode
+* Keyboard shortcuts
+* Cloud database integration
+* User authentication
+* Sync across devices
+
+---
+
+## Learning Outcomes
+
+This project demonstrates practical experience with:
+
+* DOM manipulation
+* Event handling
+* State management
+* CRUD operations
+* Local Storage
+* Responsive web design
+* Component-based UI thinking using vanilla JavaScript
+* Modal interactions
+* Dynamic rendering
+* Search and filtering
+
+---
+
+## Author
+
+**Banele Kubeka**
+
+GitHub:  https://github.com/Banele1815
+
+Portfolio: https://gcina-banele-portfolio.netlify.app
+
+LinkedIn: www.linkedin.com/in/gcina-banele-kubeka
+
+---
+
+## License
+
+This project is intended for educational and portfolio purposes.
