@@ -116,8 +116,8 @@ function createNoteActions(note) {
   }
 
   const archiveIcon = note.archived
-    ? "assets/notes icon.png"
-    : "assets/Archive icon.png";
+    ? "assets/unarchive.png"
+    : "assets/archive icon.png";
   const archiveLabel = note.archived ? "Unarchive" : "Archive";
 
   return `
