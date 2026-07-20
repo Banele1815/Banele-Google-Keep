@@ -3,152 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Google Keep</title>
-    <link rel="icon" type="image/webp" href="assets/google keep favicon.webp" />
+
+    <title>Google Keep Clone</title>
+
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/assets/google-keep-favicon.webp"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
   </head>
+
   <body>
-    <div class="app-container">
-      <aside class="sidebar">
-        <button id="menuToggle" class="menu-toggle" aria-label="Menu">
-          <img src="assets/menu icon.png" alt="" />
-        </button>
+    <div id="root"></div>
 
-        <nav class="sidebar-nav">
-          <a href="#" class="nav-item active" data-section="notes">
-            <img src="assets/notes icon.png" alt="" />
-            <span>Notes</span>
-          </a>
-          <a href="#" class="nav-item" data-section="reminders">
-            <img src="assets/reminders icon.png" alt="" />
-            <span>Reminders</span>
-          </a>
-          <a href="#" class="nav-item" data-section="labels">
-            <img src="assets/edit labels icon.png" alt="" />
-            <span>Edit labels</span>
-          </a>
-          <a href="#" class="nav-item" data-section="archive">
-            <img src="assets/Archive icon.png" alt="" />
-            <span>Archive</span>
-          </a>
-          <a href="#" class="nav-item" data-section="bin">
-            <img src="assets/bin icon.png" alt="" />
-            <span>Bin</span>
-          </a>
-        </nav>
-      </aside>
-
-      <main class="main-content">
-        <header class="app-header">
-          <div class="header-left">
-            <img
-              src="assets/Google Keep icon.png"
-              alt="Keep"
-              class="keep-logo"
-            />
-            <h1>Keep</h1>
-          </div>
-
-          <div class="search-wrapper">
-            <img src="assets/search icon.png" alt="" class="search-icon" />
-            <input type="text" class="search-input" placeholder="Search" />
-          </div>
-
-          <div class="header-actions">
-            <button class="icon-button" title="Refresh">
-              <img src="assets/refresh icon.png" alt="" />
-            </button>
-            <button class="icon-button" title="List view">
-              <img src="assets/list view icon.png" alt="" />
-            </button>
-            <button class="icon-button" title="Settings">
-              <img src="assets/settings icon.png" alt="" />
-            </button>
-            <button class="icon-button" title="Google Apps">
-              <img src="assets/Google Apps icon.png" alt="" />
-            </button>
-            <button class="profile-button" title="Profile">B</button>
-          </div>
-        </header>
-
-        <section class="composer-section">
-          <div class="composer-box">
-            <input
-              id="composerInput"
-              type="text"
-              placeholder="Take a note..."
-              readonly
-            />
-            <div class="composer-actions">
-              <button class="composer-btn" title="New list">
-                <img src="assets/new list icon.png" alt="" />
-              </button>
-              <button class="composer-btn" title="New note with drawing">
-                <img src="assets/new note with drawing icon.png" alt="" />
-              </button>
-              <button
-                class="composer-btn"
-                title="New note with image
-              "
-              >
-                <img src="assets/new note with image icon.png" alt="" />
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <section class="notes-container">
-          <div id="notesList" class="notes-grid" aria-live="polite"></div>
-        </section>
-      </main>
-    </div>
-
-    <div
-      id="noteModal"
-      class="modal-backdrop hidden"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modalTitle"
-    >
-      <div class="modal-card">
-        <h3 id="modalTitle">Take a note</h3>
-        <form id="noteForm">
-          <input
-            id="noteTitle"
-            name="title"
-            type="text"
-            placeholder="Title"
-            maxlength="100"
-          />
-          <textarea
-            id="noteText"
-            name="text"
-            placeholder="Write something..."
-            maxlength="2000"
-          ></textarea>
-          <div class="modal-footer">
-            <div class="note-tools">
-              <button type="button" class="tool-btn" title="Color">
-                <img src="assets/Archive icon.png" alt="" />
-              </button>
-            </div>
-            <div class="modal-actions">
-              <button id="cancelNote" class="btn-text" type="button">
-                Close
-              </button>
-              <button class="btn-save" type="submit">Save</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

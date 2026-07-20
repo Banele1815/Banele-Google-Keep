@@ -1,0 +1,31 @@
+{
+  "name": "banele-google-keep",
+  "version": "1.0.0",
+  "description": "A responsive **Google Keep Clone** built with **HTML5, CSS3, and Vanilla JavaScript**. This project recreates the core note-taking experience of Google Keep, allowing users to create, edit, archive, search, restore, and permanently delete notes while persisting data using the browser's Local Storage.",
+  "main": "script.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Banele1815/Banele-Google-Keep.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Banele1815/Banele-Google-Keep/issues"
+  },
+  "homepage": "https://github.com/Banele1815/Banele-Google-Keep#readme",
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.3",
+    "vite": "^8.1.5"
+  }
+}

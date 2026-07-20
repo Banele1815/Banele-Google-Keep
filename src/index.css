@@ -506,3 +506,21 @@ button {
     width: 95%;
   }
 }
+/* React sidebar buttons */
+.nav-item {
+  width: calc(100% - 0.5rem);
+  text-align: left;
+  border: none;
+  font: inherit;
+}
+
+/* Make note actions accessible on touchscreens */
+@media (max-width: 640px) {
+  .nav-item {
+    width: auto;
+  }
+
+  .note-actions {
+    display: flex;
+  }
+}
