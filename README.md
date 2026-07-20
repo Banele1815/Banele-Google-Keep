@@ -1,200 +1,98 @@
 # Banele Google Keep Clone
 
-A responsive **Google Keep Clone** built with **HTML5, CSS3, and Vanilla JavaScript**. This project recreates the core note-taking experience of Google Keep, allowing users to create, edit, archive, search, restore, and permanently delete notes while persisting data using the browser's Local Storage.
-
----
-
-## Preview
-<img width="1366" height="768" alt="Google keep screenshot" src="https://github.com/user-attachments/assets/60cabf65-d265-48bf-9162-42ae36b1c0bb" />
-
-
----
+A responsive Google Keep-inspired note application built with React and Vite. Notes are stored in the browser with `localStorage`, so the application works without a backend.
 
 ## Features
 
-* Create new notes
-* Edit existing notes
-* Archive and unarchive notes
-* Soft delete notes to the Bin
-* Restore notes from the Bin
-* Permanently delete notes
-* Live search functionality
-* Local Storage persistence
-* Responsive layout for desktop, tablet, and mobile devices
-* Modal-based note creation and editing
-* Clean Google Keep-inspired user interface
-
----
+- Create and edit title-and-text, title-only, and text-only notes
+- Live search across note titles, content, and category tags
+- Archive, unarchive, move to Bin, restore, and permanently delete notes
+- Pin important notes and display pinned notes first
+- Colour-code notes with six colour options
+- Add up to five searchable category tags per note
+- Add, edit, remove, and review date-and-time reminders
+- Dedicated Notes, Reminders, Labels, Archive, and Bin views
+- Light and dark themes saved between visits
+- Responsive desktop, tablet, and mobile layouts
+- Persistent browser storage using `localStorage`
 
 ## Built With
 
-* HTML5
-* CSS3
-* Vanilla JavaScript
-* Local Storage API
-* Google Fonts (Roboto)
-
----
+- React 19
+- Vite 8
+- JavaScript and JSX
+- CSS custom properties and responsive media queries
+- Browser `localStorage`
 
 ## Project Structure
 
 ```text
-Banele-google-keep/
-│
-├── assets
+Banele-Google-Keep-react/
+├── public/
+│   └── assets/
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── NoteCard.jsx
+│   │   ├── NoteComposer.jsx
+│   │   ├── NoteModal.jsx
+│   │   ├── NotesGrid.jsx
+│   │   └── Sidebar.jsx
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
 ├── index.html
-├── styles.css
-├── script.js
-└── README.md
+├── package.json
+└── vite.config.js
 ```
 
----
+## Run Locally
 
-## Application Functionality
-
-### Notes
-
-Users can:
-
-* Create notes
-* Edit notes
-* Save notes
-* Search notes instantly
-* Archive notes
-* Restore archived notes
-* Move notes to the Bin
-* Restore deleted notes
-* Permanently delete notes
-
----
-
-### Data Persistence
-
-All notes are stored using the browser's **Local Storage**, allowing data to remain available even after refreshing or reopening the browser.
-
-No backend or database is required.
-
----
-
-### Search
-
-The application includes a live search feature that filters notes in real time by matching both:
-
-* Note title
-* Note content
-
----
-
-### Responsive Design
-
-The interface adapts across different screen sizes.
-
-Responsive behavior includes:
-
-* Desktop layout
-* Tablet layout
-* Mobile navigation adjustments
-* Responsive note grid
-* Responsive modal sizing
-
----
-
-## Technologies Used
-
-| Technology        | Purpose                       |
-| ----------------- | ----------------------------- |
-| HTML5             | Application structure         |
-| CSS3              | Styling and responsive layout |
-| JavaScript        | Application logic             |
-| Local Storage API | Data persistence              |
-| Google Fonts      | Typography                    |
-
----
-
-## Design
-
-This project is inspired by the Google Keep interface while being developed entirely from scratch using vanilla web technologies.
-
-The design focuses on:
-
-* Minimalism
-* Accessibility
-* Responsive layouts
-* Simple navigation
-* Clean typography
-* Familiar user interactions
-
----
-
-## How to Run
-
-1. Clone the repository
+Install the dependencies:
 
 ```bash
-(https://github.com/Banele1815/Banele-Google-Keep.git?authuser=0)
+npm install
 ```
 
-2. Navigate into the project
+Start the development server:
 
 ```bash
-cd Banele-Google-Keep
+npm run dev
 ```
 
-3. Open the project
+Create a production build:
 
-Simply open `index.html` in your preferred web browser.
+```bash
+npm run build
+```
 
-No build tools or package installation are required.
+Preview the production build:
 
----
+```bash
+npm run preview
+```
 
-## Future Improvements
+## Local Storage
 
-Potential enhancements include:
+Notes are stored under `keep-clone-notes-v1`, while the selected theme is stored under `keep-clone-theme`. Data is tied to the current browser and website origin.
 
-* Note colors
-* Labels and categories
-* Reminder functionality
-* Image attachments
-* Drag-and-drop note ordering
-* Pinning important notes
-* Dark mode
-* Keyboard shortcuts
-* Cloud database integration
-* User authentication
-* Sync across devices
+## Deployment
 
----
+For Netlify, use:
 
-## Learning Outcomes
-
-This project demonstrates practical experience with:
-
-* DOM manipulation
-* Event handling
-* State management
-* CRUD operations
-* Local Storage
-* Responsive web design
-* Component-based UI thinking using vanilla JavaScript
-* Modal interactions
-* Dynamic rendering
-* Search and filtering
-
----
+```text
+Build command: npm run build
+Publish directory: dist
+```
 
 ## Author
 
 **Banele Kubeka**
 
-GitHub:  https://github.com/Banele1815
-
-Portfolio: https://gcina-banele-portfolio.netlify.app
-
-LinkedIn: www.linkedin.com/in/gcina-banele-kubeka
-
----
+- GitHub: [Banele1815](https://github.com/Banele1815)
+- Portfolio: [gcina-banele-portfolio.netlify.app](https://gcina-banele-portfolio.netlify.app)
+- LinkedIn: [gcina-banele-kubeka](https://www.linkedin.com/in/gcina-banele-kubeka)
 
 ## License
 
-This project is intended for educational and portfolio purposes.
+This project is intended for educational and portfolio use.

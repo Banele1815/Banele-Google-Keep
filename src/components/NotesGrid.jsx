@@ -8,16 +8,21 @@ function NotesGrid({
   onArchive,
   onRestore,
   onDeleteForever,
+  onTogglePin,
+  onTagSelect,
 }) {
   if (notes.length === 0) {
     const emptyMessages = {
-      notes: "No notes yet",
-      archive: "No archived notes",
+      notes: "No notes found",
+      reminders: "No reminder notes found",
+      labels: "No tagged notes found",
+      archive: "No archived notes found",
       bin: "Bin is empty",
     };
 
     return (
-      <div className="notes-grid">
+      <div className="empty-state" role="status">
+        <span aria-hidden="true">🗒️</span>
         <p>{emptyMessages[currentView] ?? "No notes found"}</p>
       </div>
     );
@@ -35,6 +40,8 @@ function NotesGrid({
           onArchive={onArchive}
           onRestore={onRestore}
           onDeleteForever={onDeleteForever}
+          onTogglePin={onTogglePin}
+          onTagSelect={onTagSelect}
         />
       ))}
     </div>
